@@ -1,5 +1,5 @@
 'use client'
-import { FC, useEffect } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { useState } from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
@@ -16,7 +16,10 @@ import { TbHelicopterLanding } from "react-icons/tb";
 import { BsQuestionDiamondFill } from "react-icons/bs";
 import { IoStatsChart } from "react-icons/io5";
 
-interface TProps { }
+type TProps = {
+    isCollapsed: boolean;
+    setIsCollapsed: Dispatch<SetStateAction<boolean>>
+}
 
 interface TAdminSidebar {
     title: string;
@@ -40,8 +43,7 @@ const Item = ({ title, to, icon, selected, setSelected }: TAdminSidebar) => {
     );
 };
 
-const AdminSidebar: FC<TProps> = () => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+const AdminSidebar: FC<TProps> = ({ isCollapsed, setIsCollapsed }) => {
     const [mounted, setMounted] = useState(false);
     const [logout, setLogout] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
@@ -67,7 +69,7 @@ const AdminSidebar: FC<TProps> = () => {
                     backgroundColor: "transparent !important",
                 },
                 "& .pro-inner-item": {
-                    padding: "5px 35px 5px 20px !important",
+                    padding: "5px 15px 5px 20px !important",
                 },
                 "& .pro-inner-item:hover": {
                     color: "#868dfb !important",
@@ -83,58 +85,43 @@ const AdminSidebar: FC<TProps> = () => {
                     position: "fixed",
                     top: "0",
                     left: "0",
-                    width: isCollapsed ? "0%" : "16%"
-                }}
-                className='bg-white dark:bg-[#111C43] !important'>
-                <Menu iconShape="square">
+                }}>
+                <Menu iconShape="square" style={{ paddingTop: "0px", paddingBottom: "0px" }}>
                     {/* LOGO AND MENU ICON */}
                     <MenuItem
                         onClick={() => setIsCollapsed(!isCollapsed)}
                         icon={isCollapsed ? <MdOutlineArrowForwardIos /> : undefined}
-                        style={{
-                            margin: "10px 0 20px 0"
-                        }}
                         className='bg-white dark:bg-[#111C43] !important'
                     >
                         {!isCollapsed && (
                             <Box
-                                display="flex"
-                                justifyContent="space-between"
-                                alignItems="center"
-                                ml="15px"
-                                className='bg-white dark:bg-[#111C43] !important'
+                                className='flex justify-between items-center ml-4 bg-white dark:bg-[#111C43] !important'
                             >
-                                <Typography variant="h3">
-                                    ADMIN
-                                </Typography>
+                                <h3 className='text-2xl text-white'>Web LMS</h3>
                                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                                    <MdArrowBackIosNew />
+                                    <MdArrowBackIosNew className="text-white" />
                                 </IconButton>
                             </Box>
                         )}
                     </MenuItem>
 
                     {!isCollapsed && (
-                        <Box mb="25px" className='bg-white dark:bg-[#111C43] !important'>
+                        <Box className='bg-white dark:bg-[#111C43] !important'>
                             <Box display="flex" justifyContent="center" alignItems="center">
-                                <Image src={user.avatar ? user.avatar.url : avatarDefault} alt="avatar image" width={128} height={128} className='w-12 h-12 lg:w-28 lg:h-28 border-2 border-green-400 rounded-full' />
+                                <Image src={user.avatar ? user.avatar.url : avatarDefault} alt="avatar image" width={128} height={128} className='w-12 h-12 lg:w-20 2xl:w-28 lg:h-20 2xl:h-28 border-2 border-green-400 rounded-full' />
                             </Box>
                             <Box textAlign="center">
-                                <Typography
-                                    variant="h2"
-                                    fontWeight="bold"
-                                    sx={{ m: "10px 0 0 0" }}
-                                >
+                                <h3 className='text-lg'>
                                     {user?.name}
-                                </Typography>
-                                <Typography variant="h5">
+                                </h3>
+                                <h3 className='text-xl capitalize'>
                                     - Admin
-                                </Typography>
+                                </h3>
                             </Box>
                         </Box>
                     )}
 
-                    <Box paddingLeft={isCollapsed ? undefined : "10%"} className='bg-white dark:bg-[#111C43] !important'>
+                    <Box className='bg-white dark:bg-[#111C43] !important'>
                         <Item
                             title="Dashboard"
                             to="/"
@@ -143,12 +130,9 @@ const AdminSidebar: FC<TProps> = () => {
                             setSelected={setSelected}
                         />
 
-                        <Typography
-                            variant="h6"
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
+                        <h3 className='text-xl font-medium pl-5 py-0'>
                             Data
-                        </Typography>
+                        </h3>
                         <Item
                             title="Users"
                             to="/users"
@@ -164,12 +148,9 @@ const AdminSidebar: FC<TProps> = () => {
                             setSelected={setSelected}
                         />
 
-                        <Typography
-                            variant="h6"
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
+                        <h3 className='text-xl font-medium pl-5 py-0'>
                             Content
-                        </Typography>
+                        </h3>
                         <Item
                             title="Create Course"
                             to="/create-course"
@@ -184,12 +165,9 @@ const AdminSidebar: FC<TProps> = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Typography
-                            variant="h6"
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
+                        <h3 className='text-xl font-medium pl-5 py-0'>
                             Customization
-                        </Typography>
+                        </h3>
                         <Item
                             title="Hero"
                             to="/customize-hero"
@@ -211,12 +189,9 @@ const AdminSidebar: FC<TProps> = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Typography
-                            variant="h6"
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
+                        <h3 className='text-xl font-medium pl-5 py-0'>
                             Controllers
-                        </Typography>
+                        </h3>
                         <Item
                             title="Manage Team"
                             to="/manage-team"
@@ -224,12 +199,9 @@ const AdminSidebar: FC<TProps> = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Typography
-                            variant="h6"
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
+                        <h3 className='text-xl font-medium pl-5 py-0'>
                             Analysis
-                        </Typography>
+                        </h3>
                         <Item
                             title="Course analysis"
                             to="/course-analysis"

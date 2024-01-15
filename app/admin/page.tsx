@@ -1,5 +1,5 @@
 'use client'
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Heading from '../utils/Heading';
 import DashboardHero from '../components/Admin/DashboardHero';
 import AdminSidebar from '../components/Admin/AdminSidebar';
@@ -8,6 +8,7 @@ import AdminProtected from '../hooks/useAdminProtected';
 interface Props { }
 
 const AdminPage: FC<Props> = () => {
+    const [isCollapsed, setIsCollapsed] = useState(false);
     return (
         <AdminProtected>
             <Heading
@@ -16,10 +17,10 @@ const AdminPage: FC<Props> = () => {
                 keywords="machine learning ,programming, MERN"
             />
             <div className='flex min-h-screen'>
-                <div className='w-1/5 lg:w-2/12'>
-                    <AdminSidebar />
+                <div className={` ${isCollapsed ? "w-[5%] lg:w-[6%]" : "w-1/5 lg:w-[20%]"}`}>
+                    <AdminSidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
                 </div>
-                <div className='w-4/5 lg:w-10/12'>
+                <div className={` ${isCollapsed ? "w-4/5 lg:w-[94%]" : "w-4/5 lg:w-[80%]"}`}>
                     <DashboardHero />
                 </div>
             </div>
