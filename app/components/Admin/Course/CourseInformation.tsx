@@ -1,9 +1,20 @@
 'use client'
 import { FC, useState } from 'react';
 
+interface TCourseInfo {
+    name: string
+    description: string;
+    price: string;
+    estimatedPrice: string;
+    tags: string;
+    level: string;
+    demoUrl: string;
+    thumbnail: string;
+}
+
 interface Props {
-    courseInfo: any;
-    setCourseInfo: (courseInfo: any) => void;
+    courseInfo: TCourseInfo;
+    setCourseInfo: (courseInfo: TCourseInfo) => void;
     active: number;
     setActive: (active: number) => void;
 }
@@ -22,7 +33,7 @@ const CourseInformation: FC<Props> = ({ active, setActive, courseInfo, setCourse
             const reader = new FileReader();
             reader.onload = () => {
                 if (reader.readyState === 2) {
-                    setCourseInfo({ ...courseInfo, thumbnail: reader.result })
+                    setCourseInfo({ ...courseInfo, thumbnail: reader.result as string })
                 }
             }
             reader.readAsDataURL(file)
@@ -47,7 +58,7 @@ const CourseInformation: FC<Props> = ({ active, setActive, courseInfo, setCourse
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
-                setCourseInfo({ ...courseInfo, thumbnail: reader.result })
+                setCourseInfo({ ...courseInfo, thumbnail: reader.result as string })
             }
             reader.readAsDataURL(file)
         }
@@ -123,8 +134,28 @@ const CourseInformation: FC<Props> = ({ active, setActive, courseInfo, setCourse
                             id='demoUrl' placeholder='https://example.image.com' />
                     </div>
                 </div>
-                <div className='w-full'>
+                <div className='w-full text-black dark:text-white'>
+                    <label htmlFor="" className='text-lg font-medium'>Thumbnail Image</label>
                     <input type="file" name="file" id="file" className='hidden' accept='image/*' onChange={handleFileChange} />
+                    <label htmlFor="file"
+                        className={`w-full min-h-[10dvh] border dark:border-white border-[#00000026] p-3 flex items-center justify-center ${dragging ? "bg-blue-500" : "bg-transparent"}`}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                    >
+                        {
+                            courseInfo?.thumbnail ? (
+                                <img src={courseInfo?.thumbnail} alt={courseInfo?.name}
+                                    className='max-w-full h-full object-cover' />
+                            ) : (
+                                <span>Drag and drop your thumbnail here or Click to browse</span>
+                            )
+                        }
+                    </label>
+                </div>
+                <div className='w-full flex items-center justify-end'>
+                    <input type="submit" value="Next"
+                        className='w-full lg:w-24 h-10 bg-secondary text-center font-medium text-white rounded cursor-pointer' />
                 </div>
             </form>
         </div>

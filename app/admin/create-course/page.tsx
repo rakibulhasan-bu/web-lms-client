@@ -43,7 +43,7 @@ const createCourse = () => {
                 }
             </div>
 
-            <div className='w-[20%] mt-24 h-screen fixed -z-10 top-16 right-0 '>
+            <div className='w-[20%] mt-24 min-h-screen fixed -z-10 top-16 right-0 '>
                 <CourseOptions active={active} setActive={setActive} />
             </div>
         </div>
