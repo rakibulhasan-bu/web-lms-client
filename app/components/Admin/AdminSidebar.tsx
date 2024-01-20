@@ -153,7 +153,7 @@ const AdminSidebar: FC<TProps> = ({ isCollapsed, setIsCollapsed }) => {
                         </h3>
                         <Item
                             title="Create Course"
-                            to="/create-course"
+                            to="/admin/create-course"
                             icon={<MdVideoCameraFront />}
                             selected={selected}
                             setSelected={setSelected}
