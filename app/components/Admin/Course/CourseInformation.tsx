@@ -1,4 +1,5 @@
 'use client'
+
 import { FC, useState } from 'react';
 
 interface TCourseInfo {
@@ -65,7 +66,7 @@ const CourseInformation: FC<Props> = ({ active, setActive, courseInfo, setCourse
     }
 
     return (
-        <div className='w-[80%] mx-auto mt-24'>
+        <div className='w-[80%] mx-auto mt-24 mb-8'>
             <form onSubmit={handleSubmit} className='space-y-2'>
                 <div className='flex flex-col gap-0.5'>
                     <label htmlFor="name" className='text-lg font-medium'>Course Name</label>

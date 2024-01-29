@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client'
+import CourseData from '@/app/components/Admin/Course/CourseData';
 import CourseInformation from '@/app/components/Admin/Course/CourseInformation';
 import CourseOptions from '@/app/components/Admin/Course/CourseOptions';
 import { useState } from 'react';
@@ -16,7 +17,7 @@ const createCourse = () => {
         demoUrl: "",
         thumbnail: ""
     });
-    const [benefit, setBenefit] = useState([{ title: "" }]);
+    const [benefits, setBenefits] = useState([{ title: "" }]);
     const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
     const [courseContentData, setCourseContentData] = useState([{
         videoUrl: "",
@@ -38,7 +39,24 @@ const createCourse = () => {
             <div className='w-[80%]'>
                 {
                     active === 0 && (
-                        <CourseInformation active={active} setActive={setActive} courseInfo={courseInfo} setCourseInfo={setCourseInfo} />
+                        <CourseInformation
+                            active={active}
+                            setActive={setActive}
+                            courseInfo={courseInfo}
+                            setCourseInfo={setCourseInfo}
+                        />
+                    )
+                }
+                {
+                    active === 1 && (
+                        <CourseData
+                            active={active}
+                            setActive={setActive}
+                            benefits={benefits}
+                            setBenefits={setBenefits}
+                            prerequisites={prerequisites}
+                            setPrerequisites={setPrerequisites}
+                        />
                     )
                 }
             </div>
