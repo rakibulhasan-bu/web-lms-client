@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client'
+
+import CourseContent from '@/app/components/Admin/Course/CourseContent';
 import CourseData from '@/app/components/Admin/Course/CourseData';
 import CourseInformation from '@/app/components/Admin/Course/CourseInformation';
 import CourseOptions from '@/app/components/Admin/Course/CourseOptions';
@@ -33,7 +35,9 @@ const createCourse = () => {
         suggestion: "",
     }]);
     const [courseData, setCourseData] = useState({});
+    const handleSubmit = async () => {
 
+    }
     return (
         <div className='w-full flex min-h-screen'>
             <div className='w-[80%]'>
@@ -56,6 +60,17 @@ const createCourse = () => {
                             setBenefits={setBenefits}
                             prerequisites={prerequisites}
                             setPrerequisites={setPrerequisites}
+                        />
+                    )
+                }
+                {
+                    active === 2 && (
+                        <CourseContent
+                            active={active}
+                            setActive={setActive}
+                            courseContentData={courseContentData}
+                            setCourseContentData={setCourseContentData}
+                            handleSubmit={handleSubmit}
                         />
                     )
                 }
