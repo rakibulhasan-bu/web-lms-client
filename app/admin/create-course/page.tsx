@@ -8,7 +8,7 @@ import CourseOptions from '@/app/components/Admin/Course/CourseOptions';
 import { useState } from 'react';
 
 const createCourse = () => {
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(2);
     const [courseInfo, setCourseInfo] = useState({
         name: "",
         description: "",
