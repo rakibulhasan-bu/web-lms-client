@@ -6,7 +6,7 @@ import { AiOutlineDelete, AiOutlinePlusCircle } from "react-icons/ai";
 import { BsLink45Deg, BsPencil } from "react-icons/bs";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
-interface TCourseContentData {
+export interface TCourseContentData {
     videoUrl: string;
     title: string;
     description: string;
