@@ -5,10 +5,11 @@ import CourseContent from '@/app/components/Admin/Course/CourseContent';
 import CourseData from '@/app/components/Admin/Course/CourseData';
 import CourseInformation from '@/app/components/Admin/Course/CourseInformation';
 import CourseOptions from '@/app/components/Admin/Course/CourseOptions';
+import CoursePreview from '@/app/components/Admin/Course/coursePreview';
 import { useState } from 'react';
 
 const createCourse = () => {
-    const [active, setActive] = useState(2);
+    const [active, setActive] = useState(0);
     const [courseInfo, setCourseInfo] = useState({
         name: "",
         description: "",
@@ -35,7 +36,45 @@ const createCourse = () => {
         suggestion: "",
     }]);
     const [courseData, setCourseData] = useState({});
+
     const handleSubmit = async () => {
+        //formate benefit data
+        const formattedBenefits = benefits.map(benefit => ({ title: benefit.title }));
+        //formate prerequisite data
+        const formattedPrerequisites = prerequisites.map(prerequisite => ({ title: prerequisite.title }));
+
+        //formate course content array
+        const formateCourseContentData = courseContentData.map(courseConData => ({
+            videoUrl: courseConData.videoUrl,
+            title: courseConData.title,
+            description: courseConData.description,
+            videoSection: courseConData.videoSection,
+            links: courseConData.links.map(link => ({
+                title: link.title,
+                url: link.url
+            })),
+            suggestion: courseConData.suggestion,
+        }));
+
+        //prepare date object
+        const data = {
+            name: courseInfo.name,
+            description: courseInfo.description,
+            price: courseInfo.price,
+            estimatedPrice: courseInfo.estimatedPrice,
+            tags: courseInfo.tags,
+            level: courseInfo.level,
+            demoUrl: courseInfo.demoUrl,
+            thumbnail: courseInfo.thumbnail,
+            totalVideos: courseContentData.length,
+            benefits: formattedBenefits,
+            prerequisites: formattedPrerequisites,
+            courseContent: formateCourseContentData
+        }
+        setCourseData(data)
+    }
+
+    const handleCourseCreate = () => {
 
     }
     return (
@@ -71,6 +110,16 @@ const createCourse = () => {
                             courseContentData={courseContentData}
                             setCourseContentData={setCourseContentData}
                             handleSubmit={handleSubmit}
+                        />
+                    )
+                }
+                {
+                    active === 3 && (
+                        <CoursePreview
+                            active={active}
+                            setActive={setActive}
+                            courseData={courseData}
+                            handleCourseCreate={handleCourseCreate}
                         />
                     )
                 }

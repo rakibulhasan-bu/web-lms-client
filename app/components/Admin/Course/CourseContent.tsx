@@ -97,6 +97,21 @@ export default function CourseContent({ active, setActive, courseContentData, se
             courseContentData[courseContentData.length - 1].links[0].url === ""
         ) {
             toast.error("Please fill the all fields first!")
+        } else {
+            setActiveSection(activeSection + 1);
+            const newContent = {
+                videoUrl: "",
+                title: "",
+                description: "",
+                videoSection: "Untitled section",
+                links: [
+                    {
+                        title: "",
+                        url: ""
+                    }
+                ]
+            }
+            setCourseContentData([...courseContentData, newContent])
         }
     }
 
@@ -105,10 +120,17 @@ export default function CourseContent({ active, setActive, courseContentData, se
     }
 
     const nextButton = () => {
-        if (benefits[benefits.length - 1]?.title !== '' && prerequisites[prerequisites.length - 1]?.title !== '') {
-            setActive(active + 1)
+        if (
+            courseContentData[courseContentData.length - 1].title === "" ||
+            courseContentData[courseContentData.length - 1].description === "" ||
+            courseContentData[courseContentData.length - 1].videoUrl === "" ||
+            courseContentData[courseContentData.length - 1].links[0].title === "" ||
+            courseContentData[courseContentData.length - 1].links[0].url === ""
+        ) {
+            toast.error("Please fill the all fields first!")
         } else {
-            toast.error("Please fill the fields for go to next!")
+            setActive(active + 1);
+            handleCourseSubmit()
         }
     }
 
