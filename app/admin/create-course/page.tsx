@@ -5,10 +5,15 @@ import CourseContent from '@/app/components/Admin/Course/CourseContent';
 import CourseData from '@/app/components/Admin/Course/CourseData';
 import CourseInformation from '@/app/components/Admin/Course/CourseInformation';
 import CourseOptions from '@/app/components/Admin/Course/CourseOptions';
-import CoursePreview from '@/app/components/Admin/Course/coursePreview';
-import { useState } from 'react';
+import CoursePreview from '@/app/components/Admin/Course/CoursePreview';
+import { useCreateCourseMutation } from '@/redux/features/courses/coursesApi';
+import { redirect } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
-const createCourse = () => {
+const CreateCoursePage = () => {
+    const [createCourse, { isLoading, error, isSuccess }] = useCreateCourseMutation()
+
     const [active, setActive] = useState(0);
     const [courseInfo, setCourseInfo] = useState({
         name: "",
@@ -76,7 +81,23 @@ const createCourse = () => {
 
     const handleCourseCreate = async (e: any) => {
         const data = courseData;
+        if (!isLoading) {
+            await createCourse({ data })
+        }
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Course created Successfully")
+            redirect("/admin/all-courses")
+        }
+        if (error) {
+            if ("data" in error) {
+                const errorMessage = error as any
+                toast.error(errorMessage?.data?.message)
+            }
+        }
+    }, [isSuccess, error, isLoading])
 
     return (
         <div className='w-full flex min-h-screen'>
@@ -133,4 +154,4 @@ const createCourse = () => {
     );
 };
 
-export default createCourse;
+export default CreateCoursePage;

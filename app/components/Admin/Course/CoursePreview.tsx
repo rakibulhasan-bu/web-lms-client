@@ -45,15 +45,15 @@ export default function CoursePreview({ active, courseData, handleCourseCreate, 
                     <CoursePlayer />
                 </div>
                 {/* this is section  */}
-                <div className='flex items-center'>
-                    <h1 className="text-2xl pt-5">{courseData?.price === 0 ? "Free" : courseData?.price + "$"}</h1>
-                    <p className="text-lg pt-2 pl-3 line-through opacity-80">{courseData?.estimatedPrice}$</p>
-                    <h3 className="pl-5 pt-4 text-xl">{discountPercentagePrice.toFixed(0)}% Off</h3>
+                <div className=''>
                     <div className='flex items-center'>
-                        <button className='font-poppins bg-rose-600 cursor-not-allowed'>
-                            Buy Now {courseData?.price}$
-                        </button>
+                        <h1 className="text-2xl pt-5">{courseData?.price === 0 ? "Free" : courseData?.price + "$"}</h1>
+                        <p className="text-lg pt-2 pl-3 line-through opacity-80">{courseData?.estimatedPrice}$</p>
+                        <h3 className="pl-5 pt-4 text-xl">{discountPercentagePrice.toFixed(0)}% Off</h3>
                     </div>
+                    <button className='font-poppins bg-rose-600 cursor-not-allowed'>
+                        Buy Now {courseData?.price}$
+                    </button>
                     <div className='flex items-center'>
                         <input
                             type="text"

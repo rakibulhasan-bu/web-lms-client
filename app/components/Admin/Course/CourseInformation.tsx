@@ -126,7 +126,7 @@ const CourseInformation: FC<Props> = ({ active, setActive, courseInfo, setCourse
                             id='level' placeholder='Primary / Intermediate / Advance' />
                     </div>
                     <div className='flex flex-col gap-0.5'>
-                        <label htmlFor="demoUrl" className='text-lg font-medium'>Estimated price (optional)</label>
+                        <label htmlFor="demoUrl" className='text-lg font-medium'>Demo Url</label>
                         <input
                             className='px-4 py-1 border rounded-sm bg-transparent'
                             type="text" required
