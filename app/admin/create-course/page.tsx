@@ -74,9 +74,10 @@ const createCourse = () => {
         setCourseData(data)
     }
 
-    const handleCourseCreate = () => {
-
+    const handleCourseCreate = async (e: any) => {
+        const data = courseData;
     }
+
     return (
         <div className='w-full flex min-h-screen'>
             <div className='w-[80%]'>
