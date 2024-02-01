@@ -25,7 +25,7 @@ const createCourse = () => {
         videoUrl: "",
         title: "",
         description: "",
-        videSection: "Untitled section",
+        videoSection: "Untitled section",
         links: [
             {
                 title: "",
